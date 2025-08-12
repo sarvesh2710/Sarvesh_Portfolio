@@ -1,0 +1,616 @@
+<!DOCTYPE HTML>
+<html>
+   <head>
+       <meta charset="UTF-8">
+       <title>Sarvesh Portfolio</title>
+       <!-- Bootstrap & Icons -->
+       <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+       <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+       <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --bg-gradient-dark: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            --text-primary: #333;
+            --text-primary-dark: #ffffff;
+            --text-secondary: #f0f0f0;
+            --text-secondary-dark: #e0e0e0;
+            --card-bg: rgba(255, 255, 255, 0.95);
+            --card-bg-dark: rgba(30, 30, 50, 0.95);
+            --card-shadow: rgba(0, 0, 0, 0.1);
+            --card-shadow-dark: rgba(0, 0, 0, 0.3);
+            --project-card-bg: white;
+            --project-card-bg-dark: #2a2a4a;
+            --link-color: #667eea;
+            --link-color-dark: #8b9dff;
+            --link-hover: #764ba2;
+            --link-hover-dark: #a8b4ff;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--bg-gradient-dark);
+            min-height: 100vh;
+            color: var(--text-primary-dark);
+            line-height: 1.6;
+            transition: all 0.3s ease;
+        }
+        /* Light mode overrides for better contrast */
+        body.light-mode { 
+            background: var(--bg-gradient);
+            color: #111; 
+        }
+        body.light-mode .navbar { background: rgba(255,255,255,.7); }
+        body.light-mode .navbar .nav-link { color:#333; }
+        body.light-mode .navbar .nav-link:hover, 
+        body.light-mode .navbar .nav-link.active { color:#000; }
+        body.light-mode .glass { background: rgba(255,255,255,.65); border-color: rgba(0,0,0,.12); }
+        body.light-mode .chip { color:#333; border-color: rgba(0,0,0,.2); }
+        body.light-mode .section-title { color:#555; }
+        body.light-mode .footer { color:#555; border-top-color: rgba(0,0,0,.1); }
+        body.light-mode .list-group-item { color:#222 !important; }
+        body.light-mode .text-white { color:#111 !important; }
+
+        /* Comma after each skill item */
+        .chip::after { content: ","; margin-left: .35rem; opacity: .8; }
+        .chip:last-child::after { content: ""; }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+        }
+
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .theme-toggle.light-mode {
+            background: rgba(255, 255, 255, 0.2);
+            color: #ffd700;
+        }
+
+        .header {
+            text-align: center;
+            padding: 60px 0 40px;
+            background: rgba(30, 30, 50, 0.3);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            margin-bottom: 40px;
+            box-shadow: 0 8px 32px var(--card-shadow-dark);
+            transition: all 0.3s ease;
+        }
+
+        .light-mode .header {
+            background: rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px var(--card-shadow);
+        }
+
+        #heading {
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: #ffffff;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            margin-bottom: 15px;
+            letter-spacing: 2px;
+            transition: all 0.3s ease;
+        }
+
+        .light-mode #heading {
+            color: #ffffff;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        #subheading {
+            color: var(--text-secondary);
+            font-size: 1.5rem;
+            font-weight: 300;
+            opacity: 0.9;
+            transition: all 0.3s ease;
+        }
+
+        .light-mode #subheading {
+            color: var(--text-secondary-dark);
+        }
+
+        .projects-section {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px var(--card-shadow);
+            transition: all 0.3s ease;
+        }
+
+        .light-mode .projects-section {
+            background: var(--card-bg);
+            box-shadow: 0 10px 30px var(--card-shadow);
+        }
+
+        .project-card {
+            background: var(--project-card-bg);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+        }
+
+        .light-mode .project-card {
+            background: var(--project-card-bg);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+        }
+
+        .project-card h3 {
+            font-size: 1.8rem;
+            color: var(--text-primary);
+            margin-bottom: 15px;
+            transition: color 0.3s ease;
+        }
+
+        .light-mode .project-card h3 {
+            color: var(--text-primary);
+        }
+
+        .project-card h3 a {
+            color: var(--link-color);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .light-mode .project-card h3 a {
+            color: var(--link-color);
+        }
+
+        .project-card h3 a:hover {
+            color: var(--link-hover);
+        }
+
+        .light-mode .project-card h3 a:hover {
+            color: var(--link-hover);
+        }
+
+        .project-card img {
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .project-card img:hover {
+            transform: scale(1.02);
+        }
+
+        .navigation {
+            text-align: center;
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px var(--card-shadow);
+            transition: all 0.3s ease;
+        }
+
+        .light-mode .navigation {
+            background: var(--card-bg);
+            box-shadow: 0 10px 30px var(--card-shadow);
+        }
+
+        .navigation h4 {
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+            color: var(--text-primary);
+            transition: color 0.3s ease;
+        }
+
+        .light-mode .navigation h4 {
+            color: var(--text-primary);
+        }
+
+        .nav-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .nav-links a {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            padding: 12px 25px;
+            border-radius: 25px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .nav-links a:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        hr {
+            border: none;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.5), transparent);
+            margin: 30px 0;
+        }
+
+        /* Vanta background layer (light mode only) */
+        #vanta {
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* removed retro terminal styles */
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+            
+            #heading {
+                font-size: 2.5rem;
+            }
+            
+            .nav-links {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .project-card {
+                padding: 20px;
+            }
+
+            .theme-toggle {
+                top: 15px;
+                right: 15px;
+                width: 45px;
+                height: 45px;
+                font-size: 1.3rem;
+            }
+        }
+
+       </style>
+
+   </head>
+
+   <body>
+       <div id="vanta"></div>
+       <button class="theme-toggle" id="themeToggle" title="Toggle Light Mode">
+           🌙
+       </button>
+
+       <!-- retro terminal block removed -->
+
+        <!-- Modern colorful Bootstrap portfolio based on resume -->
+        <div class="container my-5">
+          <div class="text-center mb-4">
+            <h1 class="display-5 fw-bold" style="background: linear-gradient(90deg, #00bcd4, #7c4dff, #ff4081); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;">Sarvesh Portfolio</h1>
+          </div>
+          <nav class="nav justify-content-center gap-2 mb-4">
+            <a class="btn btn-outline-light btn-sm" href="#about"><i class="bi bi-person-circle me-1"></i>About</a>
+            <a class="btn btn-outline-light btn-sm" href="#skills"><i class="bi bi-lightning me-1"></i>Skills</a>
+            <a class="btn btn-outline-light btn-sm" href="#experience"><i class="bi bi-briefcase me-1"></i>Experience</a>
+            <a class="btn btn-outline-light btn-sm" href="#education"><i class="bi bi-mortarboard me-1"></i>Education</a>
+            <a class="btn btn-outline-light btn-sm" href="#certifications"><i class="bi bi-patch-check me-1"></i>Certifications</a>
+            <a class="btn btn-outline-light btn-sm" href="#contact"><i class="bi bi-envelope me-1"></i>Contact</a>
+          </nav>
+
+          <section id="about" class="mb-5">
+            <div class="row g-4 align-items-center">
+              <div class="col-md-8">
+                <div class="p-4 rounded-4" style="background: rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.2)">
+                  <h2 class="h3">Sarvesh P</h2>
+                  <p class="mb-2">BTech, Electronics and Communication Engineering · SRM IST (2026)</p>
+                  <p class="mb-0">A passionate tech enthusiast currently studying at SRM Institute of Science and Technology University. Skilled in Python programming and frontend development, where I'm creating interactive and user-friendly web experiences. Right now, I’m expanding my expertise into backend technologies and actively working on exciting projects. I thrive on learning new things. I’m eager to connect, contribute, and grow in the world of technology.</p>
+                </div>
+              </div>
+              <div class="col-md-4 text-center">
+                <img id="profileImage" src="./Image/Sarvesh passport size photo.jpg" alt="Sarvesh P" class="rounded-circle" style="width:110px;height:110px;object-fit:cover;border:3px solid rgba(255,255,255,.3);">
+              </div>
+            </div>
+          </section>
+
+          <section id="skills" class="mb-5">
+            <h3 class="h4 mb-3">Skills</h3>
+            <div class="row g-4">
+              <div class="col-md-6">
+                <div class="glass p-4 h-100">
+                  <h5 class="mb-3">Programming Languages</h5>
+                  <span class="chip">Python</span>
+                  <span class="chip">JavaScript</span>
+                  <span class="chip">HTML</span>
+                  <span class="chip">CSS</span>
+                  <span class="chip">SQL</span>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="glass p-4 h-100">
+                  <h5 class="mb-3">Languages & Frameworks</h5>
+                  <span class="chip">Bootstrap</span>
+                  <span class="chip">ReactJS</span>
+                  <span class="chip">TensorFlow</span>
+                  <span class="chip">Django</span>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="glass p-4 h-100">
+                  <h5 class="mb-3">Tools & Technologies</h5>
+                  <span class="chip">Linux (Ubuntu)</span>
+                  <span class="chip">Linux (Kali)</span>
+                  <span class="chip">Linux (Parrot)</span>
+                  <span class="chip">VirtualBox</span>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="glass p-4 h-100">
+                  <h5 class="mb-3">Domain Knowledge</h5>
+                  <span class="chip">Operating System</span>
+                  <span class="chip">Data Structures & Algorithms</span>
+                  <span class="chip">Networking</span>
+                  <span class="chip">Burp Suite</span>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section id="experience" class="mb-5">
+            <h3 class="h4 mb-3">Experience</h3>
+            <div class="row g-4">
+              <div class="col-md-6">
+                <div class="p-4 rounded-4 h-100" style="background: rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.2)">
+                  <div class="d-flex justify-content-between">
+                    <strong>Frontend Intern · CodTech IT Solutions</strong>
+                    <span class="text-light">Feb 2025 – Mar 2025</span>
+                  </div>
+                  <p class="mb-0">Worked on responsive UI with HTML, CSS, JavaScript & Bootstrap. Version control with Git/GitHub.</p>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="p-4 rounded-4 h-100" style="background: rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.2)">
+                  <div class="d-flex justify-content-between">
+                    <strong>Panel Wiring Intern · Titan Engineering & Automation Limited (TEAL)</strong>
+                    <span class="text-light">Dec 2023</span>
+                  </div>
+                  <p class="mb-0">Gained practical exposure to automation, test benches and implementation practices.</p>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section id="education" class="mb-5">
+            <h3 class="h4 mb-3">Education</h3>
+            <div class="row g-4">
+              <div class="col-md-6">
+                <div class="p-4 rounded-4 h-100" style="background: rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.2)">
+                  <strong>SRM IST, Ramapuram</strong>
+                  <div>B.Tech ECE · 2026 · CGPA ~7.8</div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="p-4 rounded-4 h-100" style="background: rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.2)">
+                  <strong>Sri Vijay Vidyashram (CBSE)</strong>
+                  <div>Class XII · ~85%</div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="p-4 rounded-4 h-100" style="background: rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.2)">
+                  <strong>Sri Chaitanya Techno School</strong>
+                  <div>Class X · ~82%</div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section id="certifications" class="mb-5">
+            <h3 class="h4 mb-3">Certifications & Achievements</h3>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item bg-transparent text-white border-secondary"><i class="bi bi-patch-check-fill text-warning me-2"></i>Frontend Coding Championship · GUVI (Dec 2024)</li>
+              <li class="list-group-item bg-transparent text-white border-secondary"><i class="bi bi-patch-check-fill text-warning me-2"></i>Verilog HDL + VLSI Hardware Design · Udemy (Oct 2024)</li>
+              <li class="list-group-item bg-transparent text-white border-secondary"><i class="bi bi-trophy-fill text-warning me-2"></i>Cyberstorm‑CTF · Redfox Security</li>
+              <li class="list-group-item bg-transparent text-white border-secondary"><i class="bi bi-mortarboard-fill text-info me-2"></i>NPTEL: Python with Data Science — ~60% (Jan 2025)</li>
+              <li class="list-group-item bg-transparent text-white border-secondary"><i class="bi bi-patch-check-fill text-success me-2"></i>Python (Basic) · HackerRank</li>
+              <li class="list-group-item bg-transparent text-white border-secondary"><i class="bi bi-patch-check-fill text-success me-2"></i>SQL (Intermediate) · HackerRank</li>
+            </ul>
+          </section>
+
+          <section id="contact" class="mb-5">
+            <h3 class="h4 mb-3">Contact</h3>
+            <div class="row g-4">
+              <div class="col-lg-6">
+                <form id="contactForm" class="needs-validation" novalidate>
+                  <div class="mb-3">
+                    <label class="form-label">Your Name</label>
+                    <input id="name" type="text" class="form-control" required>
+                    <div class="invalid-feedback">Please enter your name.</div>
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label">Email</label>
+                    <input id="email" type="email" class="form-control" required>
+                    <div class="invalid-feedback">Enter a valid email.</div>
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label">Message</label>
+                    <textarea id="message" class="form-control" rows="4" required></textarea>
+                    <div class="invalid-feedback">Please enter a message.</div>
+                  </div>
+                  <button class="btn btn-success" type="submit"><i class="bi bi-send me-1"></i>Send</button>
+                  <a class="btn btn-outline-light ms-2" href="mailto:sarveshpandi27@gmail.com?subject=Portfolio%20Contact">Email</a>
+                </form>
+              </div>
+              <div class="col-lg-6">
+                <div class="p-4 rounded-4 h-100" style="background: rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.2)">
+                  <h5 class="mb-3">Details</h5>
+                  <p class="mb-1"><i class="bi bi-envelope text-info me-2"></i> sarveshpandi27@gmail.com</p>
+                  <p class="mb-1"><i class="bi bi-telephone text-info me-2"></i> 7418873810</p>
+                  <p class="mb-0"><i class="bi bi-geo-alt text-info me-2"></i> Hosur, Tamil Nadu, India</p>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+
+        <button id="toTop" class="btn btn-primary rounded-circle position-fixed" style="right:20px; bottom:20px; display:none"><i class="bi bi-arrow-up"></i></button>
+
+        <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 1200">
+          <div id="sentToast" class="toast align-items-center text-bg-success border-0" role="status" aria-live="polite" aria-atomic="true">
+            <div class="d-flex">
+              <div class="toast-body"><i class="bi bi-check2-circle me-2"></i>Message stored locally. I'll get back to you soon!</div>
+              <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+          </div>
+        </div>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r121/three.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.fog.min.js"></script>
+        <script>
+           const themeToggle = document.getElementById('themeToggle');
+           const body = document.body;
+           
+           // Check for saved theme preference or default to dark mode
+           const savedTheme = localStorage.getItem('theme');
+           if (savedTheme === 'light') {
+               body.classList.add('light-mode');
+               themeToggle.textContent = '☀️';
+               themeToggle.classList.add('light-mode');
+           }
+           
+            themeToggle.addEventListener('click', () => {
+               body.classList.toggle('light-mode');
+               themeToggle.classList.toggle('light-mode');
+               
+               if (body.classList.contains('light-mode')) {
+                   themeToggle.textContent = '☀️';
+                   localStorage.setItem('theme', 'light');
+               } else {
+                   themeToggle.textContent = '🌙';
+                   localStorage.setItem('theme', 'dark');
+               }
+            });
+
+            // Vanta Fog animated background for both themes with different palettes
+            let vantaEffect = null;
+            function fogOptionsForTheme(){
+              if (body.classList.contains('light-mode')) {
+                return {
+                  highlightColor: 0x7c4dff,
+                  midtoneColor: 0x00bcd4,
+                  lowlightColor: 0x764ba2,
+                  baseColor: 0xffffff,
+                  blurFactor: 0.6,
+                  speed: 1.0
+                };
+              }
+              return {
+                highlightColor: 0x8b9dff, // soft purple/blue glow
+                midtoneColor: 0x1c2a5a,   // deep blue
+                lowlightColor: 0x0b1020,  // near black
+                baseColor: 0x0b1020,
+                blurFactor: 0.45,
+                speed: 1.2
+              };
+            }
+            function mountVanta() {
+              const target = document.getElementById('vanta');
+              if (!window.VANTA || !window.THREE || !target) return;
+              if (vantaEffect) return;
+              vantaEffect = window.VANTA.FOG({
+                el: target,
+                mouseControls: true,
+                touchControls: true,
+                gyroControls: false,
+                minHeight: 200.00,
+                minWidth: 200.00,
+                ...fogOptionsForTheme()
+              });
+            }
+            function destroyVanta(){ if (vantaEffect && vantaEffect.destroy) { vantaEffect.destroy(); vantaEffect = null; } }
+            function remountVanta(){ destroyVanta(); const tryInit = () => { if (window.VANTA && window.THREE) mountVanta(); else setTimeout(tryInit, 150); }; tryInit(); }
+
+            // Initialize once on load with current theme
+            remountVanta();
+            
+
+
+            // Reconfigure on theme changes
+            const observer = new MutationObserver(() => { remountVanta(); });
+            observer.observe(body, { attributes: true, attributeFilter: ['class'] });
+
+            // Smooth scroll to top
+            const toTopBtn = document.getElementById('toTop');
+            window.addEventListener('scroll', () => {
+              toTopBtn.style.display = window.scrollY > 400 ? 'block' : 'none';
+            });
+            toTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+
+
+            // Contact form: validate and store in localStorage + toast
+            const form = document.getElementById('contactForm');
+            if (form) {
+              form.addEventListener('submit', function (e) {
+                e.preventDefault();
+                if (!form.checkValidity()) {
+                  form.classList.add('was-validated');
+                  return;
+                }
+                const payload = {
+                  name: document.getElementById('name').value,
+                  email: document.getElementById('email').value,
+                  message: document.getElementById('message').value,
+                  time: new Date().toISOString()
+                };
+                const store = JSON.parse(localStorage.getItem('sarvesh_messages') || '[]');
+                store.push(payload);
+                localStorage.setItem('sarvesh_messages', JSON.stringify(store));
+                try {
+                  const toast = new bootstrap.Toast(document.getElementById('sentToast'));
+                  toast.show();
+                } catch (err) {
+                  console.log('Toast ready:', payload);
+                }
+                form.reset();
+                form.classList.remove('was-validated');
+              });
+            }
+       </script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+   </body>
+
+</html>
+
